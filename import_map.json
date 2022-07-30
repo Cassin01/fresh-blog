@@ -1,0 +1,20 @@
+{
+  "imports": {
+    "@db": "./util/db.ts",
+    "postgress": "https://deno.land/x/postgres@v0.16.1/mod.ts",
+    "$fresh/": "https://raw.githubusercontent.com/lucacasonato/fresh/main/",
+    "lodash/": "https://deno.land/x/lodash@4.17.15-es/",
+    "preact": "https://esm.sh/preact@10.8.2",
+    "preact/": "https://esm.sh/preact@10.8.2/",
+    "preact-render-to-string": "https://esm.sh/preact-render-to-string@5.2.0?external=preact",
+    "@twind": "./utils/twind.ts",
+    "twind": "https://esm.sh/twind@0.16.17",
+    "twind/": "https://esm.sh/twind@0.16.17/",
+    "dayjs/": "https://cdn.skypack.dev/dayjs/",
+    "dayjs": "https://cdn.skypack.dev/dayjs",
+    "dotenv/": "https://deno.land/x/dotenv@v3.2.0/",
+    "marked": "https://esm.sh/marked@4.0.17",
+    "sanitize-html": "https://esm.sh/sanitize-html@2.7.0",
+    "dompurify": "https://cdn.skypack.dev/dompurify"
+  }
+}
