@@ -31,5 +31,5 @@ This will watch the project directory and restart as necessary.
 
 - runtime: deno
 - lang: typescript
-- css: twind
+- css: tailwindcss
 - framework: fresh
