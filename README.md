@@ -25,7 +25,6 @@ This will watch the project directory and restart as necessary.
 
 ### Site
 
-[here](https://cassin01-fresh-blog.deno.dev)
 
 ### info
 
