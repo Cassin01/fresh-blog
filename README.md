@@ -1,9 +1,12 @@
 # fresh project
 
+## Reference
+
+[zenn](https://zenn.dev/azukiazusa/articles/fresh-tutorial)
+
 ## Usage
 
 ### Start the project:
-
 ```
 deno task start
 ```
