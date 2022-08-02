@@ -11,36 +11,36 @@ import { marked } from "marked";
 import sanitize from "sanitize-html";
 
 interface Data {
-    /** DB から取得した記事 */
-    article: Article;
-    /** パース済みのコンテンツ */
-    parsedContent: string;
+  /** DB から取得した記事 */
+  article: Article;
+  /** パース済みのコンテンツ */
+  parsedContent: string;
 }
 
 export const handler: Handlers<Data | null> = {
-    async GET(_, ctx) {
-      // パスパラメータを取得
-      const { id } = ctx.params;
-      // パスパラメータのIDを引数に記事を取得
-      const article = await findArticleById(id);
+  async GET(_, ctx) {
+    // パスパラメータを取得
+    const { id } = ctx.params;
+    // パスパラメータのIDを引数に記事を取得
+    const article = await findArticleById(id);
 
-      // 記事が取得できなかった場合は null を渡す
-      if (!article) {
-          return ctx.render(null);
-      }
+    // 記事が取得できなかった場合は null を渡す
+    if (!article) {
+      return ctx.render(null);
+    }
 
-      // マークダウンをパースする
-      const parsed = marked.parse(article.content);
-      // HTML をサニタイズする
-      const parsedContent = sanitize(parsed);
+    // マークダウンをパースする
+    const parsed = marked.parse(article.content);
+    // HTML をサニタイズする
+    const parsedContent = sanitize(parsed);
 
-      return ctx.render({
-        article,
-        parsedContent,
-      });
-      // // 記事が取得できた場合は取得した記事を渡す
-      // return ctx.render(article);
-    },
+    return ctx.render({
+      article,
+      parsedContent,
+    });
+    // // 記事が取得できた場合は取得した記事を渡す
+    // return ctx.render(article);
+  },
 };
 
 export default function ArticlePage({ data }: PageProps<Data | null>) {
@@ -59,7 +59,7 @@ export default function ArticlePage({ data }: PageProps<Data | null>) {
       </Head>
       <div
         class={tw(
-            "max-w-screen-sm mx-auto px-4 sm:px-6 md:px-8 pt-12 pb-20 flex flex-col"
+          "max-w-screen-sm mx-auto px-4 sm:px-6 md:px-8 pt-12 pb-20 flex flex-col"
         )}
       >
         <article class={tw("rounded-xl border p-5 shadow-md bg-white")}>
@@ -67,9 +67,9 @@ export default function ArticlePage({ data }: PageProps<Data | null>) {
             <h1 class={tw("font-extrabold text-5xl text-gray-800")}>
               {article.title}
             </h1>
-          <time class={tw("text-gray-500 text-sm")} dateTime={article.created_at}>
-            {dayjs(article.created_at).format("YYYY-MM-DD HH:mm:ss")}
-          </time>
+            <time class={tw("text-gray-500 text-sm")} dateTime={article.created_at}>
+              {dayjs(article.created_at).format("YYYY-MM-DD HH:mm:ss")}
+            </time>
           </header>
           <section class={tw("mt-6")}>
             {/* <p>{data.content}</p> */}
@@ -81,7 +81,7 @@ export default function ArticlePage({ data }: PageProps<Data | null>) {
         </article>
 
       </div>
-      </div>
+    </div>
   )
 }
 

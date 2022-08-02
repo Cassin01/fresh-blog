@@ -11,8 +11,7 @@ import { Article, findAllArticles } from "@db";
 import dayjs from "https://cdn.skypack.dev/dayjs"
 import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/ja";
-dayjs.extend(relativeTime);
-dayjs.locale("ja");
+dayjs.extend(relativeTime); dayjs.locale("ja");
 
 
 
@@ -40,10 +39,10 @@ dayjs.locale("ja");
 //   },
 // };
 export const handler: Handlers<Article[]> = {
-    async GET(_, ctx) {
-        const articles = await findAllArticles();
-        return ctx.render(articles);
-    },
+  async GET(_, ctx) {
+    const articles = await findAllArticles();
+    return ctx.render(articles);
+  },
 };
 
 
@@ -109,11 +108,11 @@ export default function Home({ data }: PageProps<Article[]>) {
             <a
               href="/articles/create"
               class={tw(
-                  "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md"
+                "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md"
               )}
             >
               Create Post
-              </a>
+            </a>
           </div>
           {/* <h2 class={tw("text-4xl font-bold text-gray-800 py-4")}>Posts</h2> */}
           <ul>
@@ -151,3 +150,6 @@ export default function Home({ data }: PageProps<Article[]>) {
 // Log
 // supbase: までやった．
 // submitの外回りだけやった
+// TODO
+// - [ ] パスワード
+// - [ ] タブ
