@@ -6,15 +6,19 @@ import { createArticle } from "@db";
 import { Handlers } from "$fresh/server.ts";
 import { PageProps } from "$fresh/server.ts";
 import ContentForm from "../../islands/ContentForm.tsx";
+import ArticleTag from "../../islands/ArticleTag.tsx";
 
 interface Data {
     /** バリエーションエラー情報 */
     error: {
       title: string;
       content: string;
+      tag: string;
     };
     /** 前回のタイトルの入力値 */
     title?: string;
+    /** 前回のタグの入力値 */
+    tag?: string;
     /** 前回のコンテンツの入力値 */
     content?: string;
 }
@@ -25,22 +29,26 @@ export const handler: Handlers<Data> = {
       const formData = await req.formData();
       const title = formData.get("title")?.toString();
       const content = formData.get("content")?.toString();
+      const tag = formData.get("tag")?.toString();
 
       // タイトルまたはコンテンツどちらも未入力の場合はバリデーションエラー
-      if (!title || !content) {
+      if (!title || !content || !tag) {
           return ctx.render({
               error: {
                   title: title ? "" : "Title is required",
                   content: content ? "" : "Content is required",
+                  tag: tag ? "" : "Tag is required",
               },
               title,
               content,
+              tag,
           });
       }
 
       const article = {
         title,
         content,
+        tag,
       };
 
       // データベースに保存
@@ -85,11 +93,16 @@ export default function CreateArticlePage({data,}: PageProps<Data | undefined>) 
                 name="title"
                 value={data?.title} // 前回の入力値を初期値に渡す
               />
-              {/* タイトルの入力にバリデーションカラーがあった場合表示する */}
+              {/* タイトルの入力にバリデーションエラーがあった場合表示する */}
               {data?.error?.title && (
                 <p class={tw("text-red-500 text-sm")}>{data.error.title}</p>
               )}
             </div>
+            <div>
+              {/* TODO: Add multiple form tags */}
+              <ArticleTag initialValue={data?.tag} />
+            </div>
+
             <div>
               <ContentForm initialValue={data?.content} />
               {/* コンテンツの入力にバリデーションエラーがあった場合表示する */}
