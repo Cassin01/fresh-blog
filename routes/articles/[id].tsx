@@ -62,6 +62,16 @@ export default function ArticlePage({ data }: PageProps<Data | null>) {
           "max-w-screen-sm mx-auto px-4 sm:px-6 md:px-8 pt-12 pb-20 flex flex-col"
         )}
       >
+        <div class={tw("flex justify-between items-center")}>
+          <h2 class={tw("text-4xl font-bold text-gray-800 py-4")}></h2>
+          {/* <DeleteArticle id={article.id} /> */}
+          <a
+            href={`${article.id}/edit`}
+            name='edit-article'
+            class={tw("bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md")}>
+            edit
+          </a>
+        </div>
         <article class={tw("rounded-xl border p-5 shadow-md bg-white")}>
           <header>
             <h1 class={tw("font-extrabold text-5xl text-gray-800")}>

@@ -41,7 +41,7 @@ export const findAllArticles = async() => {
 /**
  * IDを指定して記事を取得する
  */
-export const findArticleById = async (id: string) => {
+export const findArticleById = async(id: string) => {
     try {
         const result = await client.queryObject<Article>(
             "SELECT * FROM articles WHERE id = $1",
@@ -70,5 +70,28 @@ export const createArticle = async (article: Pick<Article, 'title' | 'content'>)
     } catch (e) {
         console.error(e);
         return null;
+    }
+}
+
+/**
+ * 記事を削除する
+ */
+export type Result<E = Error> =
+    | { ok: true }
+    | { ok: false; error: E };
+export const deleteArticle = async (id: string): Promise<Result> => {
+    try {
+        const result = await client.queryObject<Article>(
+            "DELETE FROM articles WHERE id = $1",
+            [id]
+        );
+        if (result.rowCount === 0) {
+            // id not found
+            return { ok: false, error: Error("id not found")}
+        }
+        return { ok: true }
+    } catch (e) {
+        // console.error(e);
+        return { ok: false, error: e }
     }
 }
