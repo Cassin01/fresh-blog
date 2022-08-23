@@ -13,82 +13,12 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/ja";
 dayjs.extend(relativeTime); dayjs.locale("ja");
 
-
-
-// interface Article {
-//   id: string;
-//   title: string;
-//   created_at: string;
-// }
-
-// export const handler: Handlers<Article[]> = { // ②
-//   async GET(_, ctx) {
-//     const articles: Article[] = [
-//       {
-//         id: "1",
-//         title: "Article 1",
-//         created_at: "2022-06-17T00:00:00.000Z",
-//       },
-//       {
-//         id: "2",
-//         title: "Article 2",
-//         created_at: "2022-06-10T00:00:00.000Z",
-//       },
-//     ];
-//     return ctx.render(articles);
-//   },
-// };
 export const handler: Handlers<Article[]> = {
   async GET(_, ctx) {
     const articles = await findAllArticles();
     return ctx.render(articles);
   },
 };
-
-
-// export default function Home() {
-//   return (
-//     <div class={tw`p-4 mx-auto max-w-screen-md`}>
-//       <img
-//         src="/logo.svg"
-//         height="100px"
-//         alt="the fresh logo: a sliced lemon dripping with juice"
-//       />
-//       <p class={tw`my-6`}>
-//         Welcome to `fresh`. Try updating this message in the ./routes/index.tsx
-//         file, and refresh.
-//       </p>
-//       <Counter start={3} />
-//     </div>
-//   );
-// }
-//
-// referene: https://zenn.dev/azukiazusa/articles/fresh-tutorial
-// export default function Home({data}: PageProps<Article[]>) {
-//   return (
-//     <div>
-//       <Head>
-//         <title>Fresh Blog</title>
-//       </Head>
-//       <div>
-//         <h1 class={tw("text-red-500")}>Fresh Blog</h1>
-//         <section>
-//           <h2>Posts</h2>
-//           <ul>
-//             {data.map((article) => (
-//               <li key={article.id}>
-//                 <a href={`articles/${article.id}`}>
-//                   <h3>{article.title}</h3>
-//                   <time dateTime={article.created_at}>{article.created_at}</time>
-//                 </a>
-//               </li>
-//             ))}
-//           </ul>
-//         </section>
-//       </div>
-//     </div>
-//   );
-// }
 
 export default function Home({ data }: PageProps<Article[]>) {
   return (
@@ -152,4 +82,4 @@ export default function Home({ data }: PageProps<Article[]>) {
 // submitの外回りだけやった
 // TODO
 // - [ ] パスワード
-// - [ ] タブ
+// - [/] タブ

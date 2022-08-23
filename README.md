@@ -26,9 +26,16 @@ This will watch the project directory and restart as necessary.
 ### Site
 
 
-### info
+#### 認証周り
+
+- [showcase_chat](https://github.com/denoland/showcase_chat)
+
+### Tool
 
 - runtime: deno
 - lang: typescript
 - css: tailwindcss
 - framework: fresh
+
+### 開発log
+

@@ -30,16 +30,16 @@ export const handler: Handlers<Data | null> = {
     });
   },
   async POST(_, ctx) {
-      const res = await deleteArticle(ctx.params.id);
-      if (!res.ok) {
-        console.log(res.error);
-      }
-      return new Response("", {
-          status: 303,
-          headers: {
-              Location: "/",
-          },
-      });
+    const res = await deleteArticle(ctx.params.id);
+    if (!res.ok) {
+      console.log(res.error);
+    }
+    return new Response("", {
+      status: 303,
+      headers: {
+        Location: "/",
+      },
+    });
   }
 };
 
@@ -57,33 +57,37 @@ export default function ArticlePage({ data }: PageProps<Data | null>) {
         <title>{article.title}</title>
         <link rel="stylesheet" href="/article.css" />
       </Head>
-    <div
-      class={tw(
-        "max-w-screen-sm mx-auto px-4 sm:px-6 md:px-8 pt-12 pb-20 flex flex-col"
-      )}
-    >
-      <div class={tw("flex justify-between items-center")}>
-        <h2 class={tw("text-4xl font-bold text-gray-800 py-4")}></h2>
-        {/* <DeleteArticle id={article.id} /> */}
-        <form method="POST">
-          <button
-            type='submit'
-            name='delete-article'
-            class={tw("bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md")}>
-            delete
-          </button>
-        </form>
-      </div>
-      <article class={tw("rounded-xl border p-5 shadow-md bg-white")}>
-        <header>
-          <h1 class={tw("font-extrabold text-5xl text-gray-800")}>
-            {article.title}
-          </h1>
-          <time class={tw("text-gray-500 text-sm")} dateTime={article.created_at}>
-            {dayjs(article.created_at).format("YYYY-MM-DD HH:mm:ss")}
-          </time>
-        </header>
-      </article>
+      <div
+        class={tw(
+          "max-w-screen-sm mx-auto px-4 sm:px-6 md:px-8 pt-12 pb-20 flex flex-col"
+        )}
+      >
+        <h1 class={tw("font-extrabold text-5xl text-gray-800")}>Fresh Blog</h1>
+        <section class={tw("mt-8")}>
+
+        <div class={tw("flex justify-between items-center")}>
+          <h2 class={tw("text-4xl font-bold text-gray-800 py-4")}></h2>
+          {/* <DeleteArticle id={article.id} /> */}
+          <form method="POST">
+            <button
+              type='submit'
+              name='delete-article'
+              class={tw("bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md")}>
+              Delete Post
+            </button>
+          </form>
+        </div>
+        <article class={tw("rounded-xl border p-5 shadow-md bg-white")}>
+          <header>
+            <h1 class={tw("font-extrabold text-5xl text-gray-800")}>
+              {article.title}
+            </h1>
+            <time class={tw("text-gray-500 text-sm")} dateTime={article.created_at}>
+              {dayjs(article.created_at).format("YYYY-MM-DD HH:mm:ss")}
+            </time>
+          </header>
+        </article>
+        </section>
       </div>
     </div>
   )

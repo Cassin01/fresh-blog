@@ -62,6 +62,8 @@ export default function ArticlePage({ data }: PageProps<Data | null>) {
           "max-w-screen-sm mx-auto px-4 sm:px-6 md:px-8 pt-12 pb-20 flex flex-col"
         )}
       >
+        <h1 class={tw("font-extrabold text-5xl text-gray-800")}><a href="/">Fresh Blog</a></h1>
+        <section class={tw("mt-8")}>
         <div class={tw("flex justify-between items-center")}>
           <h2 class={tw("text-4xl font-bold text-gray-800 py-4")}></h2>
           {/* <DeleteArticle id={article.id} /> */}
@@ -89,7 +91,7 @@ export default function ArticlePage({ data }: PageProps<Data | null>) {
             />
           </section>
         </article>
-
+      </section>
       </div>
     </div>
   )
