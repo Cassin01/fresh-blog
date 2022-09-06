@@ -18,7 +18,6 @@ export class GitHubApi {
     if (!response.ok) {
         throw new Error(await response.text());
     }
-    console.log(await response.clone().text());
     const data = await response.json();
     const accessToken = data["access_token"];
     if (typeof accessToken !== "string") {
