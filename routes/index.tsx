@@ -5,6 +5,8 @@ import { PageProps } from "$fresh/server.ts";
 import { Head } from "$fresh/src/runtime/head.ts";
 import { Handlers } from "$fresh/server.ts";
 import { Article, findAllArticles } from "@db";
+import { gitHubApi } from "@/communication/github.ts";
+import { getCookies, setCookie } from "$std/http/cookie.ts";
 
 // dayjs で相対日付を表示するために import
 // import dayjs from "https://deno.land/x/dayjs@v1.11.3/src/index.js";
@@ -13,19 +15,53 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/ja";
 dayjs.extend(relativeTime); dayjs.locale("ja");
 
-export const handler: Handlers<Article[]> = {
-  async GET(_, ctx) {
+export const handler: Handlers<Article[] | boolean> = {
+  async GET(req: Request, ctx) {
+    // Get cookie from request header and parse it
+    const maybeAccessToken = getCookies(req.headers)["deploy_chat_token"];
+
+    // TODO: Here get user data from database.
+
+    // Get all articles
     const articles = await findAllArticles();
-    return ctx.render(articles);
+
+    if (maybeAccessToken) {
+      return ctx.render(articles);
+    }
+
+    // This is an oauth callback request.
+    const url = new URL(req.url);
+    const code = url.searchParams.get("code");
+    if (!code) {
+      // return ctx.render(articles);
+        return ctx.render(false);
+    }
+
+    const accessToken = await gitHubApi.getAccessToken(code);
+    const userData = await gitHubApi.getUserData(accessToken);
+
+    // TODO: Here set new user to database.
+
+    const response  = await ctx.render(articles);
+    setCookie(response.headers, {
+      name: "deploy_chat_token",
+      value: accessToken,
+      maxAge: 60 * 60 * 24 * 7,
+      httpOnly: true,
+    });
+
+    return response;
+    // return ctx.render(articles);
   },
 };
 
 export default function Home({ data }: PageProps<Article[]>) {
   return (
-    <div class={tw("h-screen bg-gray-200")}>
+    <div class={tw("min-h-screen bg-gray-200")}>
       <Head>
         <title>Fresh Blog</title>
       </Head>
+      {data ? (
       <div
         class={tw(
           "max-w-screen-sm mx-auto px-4 sm:px-6 md:px-8 pt-12 pb-20 flex flex-col"
@@ -71,6 +107,16 @@ export default function Home({ data }: PageProps<Article[]>) {
           </ul>
         </section>
       </div>
+      ) : (
+        <div class={tw`flex justify-center items-center flex-col`}>
+          <a
+            href="/api/login"
+            class={tw `bg-gray-900 text-gray-100 hover:text-white shadow font-bold text-sm py-3 px-4 rounded flex justify-start items-center cursor-pointer mt-2`}
+          >
+          </a>
+          <span>Sign up with Github</span>
+        </div>
+      )}
     </div>
   );
 }

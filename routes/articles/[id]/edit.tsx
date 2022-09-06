@@ -65,7 +65,7 @@ export default function ArticlePage({ data }: PageProps<Data | null>) {
         <h1 class={tw("font-extrabold text-5xl text-gray-800")}>Fresh Blog</h1>
         <section class={tw("mt-8")}>
 
-        <div class={tw("flex justify-between items-center")}>
+        <div class={tw("flex justify-between items-center mb-4")}>
           <h2 class={tw("text-4xl font-bold text-gray-800 py-4")}></h2>
           {/* <DeleteArticle id={article.id} /> */}
           <form method="POST">
@@ -92,5 +92,3 @@ export default function ArticlePage({ data }: PageProps<Data | null>) {
     </div>
   )
 }
-
-

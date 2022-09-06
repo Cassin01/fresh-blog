@@ -64,14 +64,14 @@ export default function ArticlePage({ data }: PageProps<Data | null>) {
       >
         <h1 class={tw("font-extrabold text-5xl text-gray-800")}><a href="/">Fresh Blog</a></h1>
         <section class={tw("mt-8")}>
-        <div class={tw("flex justify-between items-center")}>
+        <div class={tw("flex justify-between items-center mb-4")}>
           <h2 class={tw("text-4xl font-bold text-gray-800 py-4")}></h2>
           {/* <DeleteArticle id={article.id} /> */}
           <a
             href={`${article.id}/edit`}
             name='edit-article'
             class={tw("bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md")}>
-            edit
+            Edit
           </a>
         </div>
         <article class={tw("rounded-xl border p-5 shadow-md bg-white")}>
