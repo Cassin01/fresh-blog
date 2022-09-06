@@ -37,6 +37,8 @@ export const handler: Handlers<Article[] | boolean> = {
         return ctx.render(false);
     }
 
+    return ctx.render(articles);
+
     const accessToken = await gitHubApi.getAccessToken(code);
     const userData = await gitHubApi.getUserData(accessToken);
 
