@@ -1,6 +1,8 @@
 {
   "imports": {
+    "@/": "./",
     "@db": "./util/db.ts",
+    "$std/": "https://deno.land/std@0.152.0/",
     "postgress": "https://deno.land/x/postgres@v0.16.1/mod.ts",
     "$fresh/": "https://raw.githubusercontent.com/lucacasonato/fresh/main/",
     "lodash/": "https://deno.land/x/lodash@4.17.15-es/",
