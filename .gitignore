@@ -2,4 +2,4 @@
 .env.swp
 .gitignore.save
 .vscode/
-
+.DS_Store
