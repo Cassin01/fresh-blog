@@ -16,7 +16,8 @@ export class GitHubApi {
       }
     );
     if (!response.ok) {
-        throw new Error(await response.text());
+      const text = await response.text();
+        throw new Error(`@@@on response ${text}`);
     }
     const data = await response.json();
     const accessToken = data["access_token"];
