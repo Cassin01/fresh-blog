@@ -10,22 +10,48 @@ export class GitHubApi {
           code,
         }),
         headers: {
-            Accpet: "application/json",
-            "Content-Type": "application/json"
-        }
-      }
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      },
     );
     if (!response.ok) {
-      const text = await response.text();
-        throw new Error(`@@@on response ${text}`);
+      throw new Error(await response.text());
     }
     const data = await response.json();
     const accessToken = data["access_token"];
     if (typeof accessToken !== "string") {
-        throw new Error("Access token was not a string.");
+      throw new Error("Access token was not a string.");
     }
     return accessToken;
   }
+  // async getAccessToken(code: string) {
+  //   const response = await fetch(
+  //     "https://github.com/login/oauth/access_token",
+  //     {
+  //       method: "POST",
+  //       body: JSON.stringify({
+  //         client_id: Deno.env.get("GITHUB_CLIENT_ID"),
+  //         client_secret: Deno.env.get("GITHUB_CLIENT_SECRET"),
+  //         code,
+  //       }),
+  //       headers: {
+  //           Accpet: "application/json",
+  //           "Content-Type": "application/json"
+  //       }
+  //     }
+  //   );
+  //   if (!response.ok) {
+  //     const text = await response.text();
+  //       throw new Error(`@@@on response ${text}`);
+  //   }
+  //   const data = await response.json();
+  //   const accessToken = data["access_token"];
+  //   if (typeof accessToken !== "string") {
+  //       throw new Error("Access token was not a string.");
+  //   }
+  //   return accessToken;
+  // }
 
   async getUserData(accessToken: string) {
       const response = await fetch("https://api.github.com/user", {
