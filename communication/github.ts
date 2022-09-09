@@ -40,8 +40,8 @@ export class GitHubApi {
         userId: userData.id as number,
         userName: userData.login as string,
         avatarUrl: userData["avatar_url"] as string
-      }
-  };
+      };
+  }
 }
 
 export const gitHubApi = new GitHubApi();
