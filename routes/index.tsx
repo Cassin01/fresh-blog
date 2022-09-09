@@ -36,11 +36,12 @@ export async function handler(req: Request, ctx: HandlerContext): Promise<Respon
         return ctx.render(false);
     }
 
+    // return ctx.render(articles)
 
     // FIXME: there are some `not work well`s bellow.
 
     const accessToken = await gitHubApi.getAccessToken(code);
-    const userData = await gitHubApi.getUserData(accessToken);
+    // const userData = await gitHubApi.getUserData(accessToken);
 
 
     // TODO: Here set new user to database.
