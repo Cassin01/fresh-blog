@@ -37,11 +37,13 @@ export const handler: Handlers<Article[] | boolean> = {
         return ctx.render(false);
     }
 
-    return ctx.render(articles);
 
     // FIXME: there are some `not work well`s bellow.
 
     const accessToken = await gitHubApi.getAccessToken(code);
+
+    return ctx.render(articles);
+
     const userData = await gitHubApi.getUserData(accessToken);
 
     // TODO: Here set new user to database.
