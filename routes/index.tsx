@@ -38,15 +38,15 @@ export async function handler(req: Request, ctx: HandlerContext): Promise<Respon
 
     // return ctx.render(articles)
 
-    // FIXME: there are some `not work well`s bellow.
 
     const accessToken = await gitHubApi.getAccessToken(code);
     // const userData = await gitHubApi.getUserData(accessToken);
 
-    return ctx.render(articles)
+    // return ctx.render(articles)
 
     // TODO: Here set new user to database.
 
+    // FIXME: there are some `not work well`s bellow.
     const response  = await ctx.render(articles);
     setCookie(response.headers, {
       name: "deploy_chat_token",
