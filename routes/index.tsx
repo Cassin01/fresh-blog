@@ -40,7 +40,6 @@ export async function handler(req: Request, ctx: HandlerContext): Promise<Respon
     // FIXME: there are some `not work well`s bellow.
 
     const accessToken = await gitHubApi.getAccessToken(code);
-    // return ctx.render(articles);
     const userData = await gitHubApi.getUserData(accessToken);
 
 
