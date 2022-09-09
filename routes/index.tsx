@@ -1,9 +1,9 @@
 /** @jsx h */
 import { h } from "preact";
 import { tw } from "@twind";
-import { PageProps } from "$fresh/server.ts";
+import { PageProps, HandlerContext } from "$fresh/server.ts";
 import { Head } from "$fresh/src/runtime/head.ts";
-import { Handlers } from "$fresh/server.ts";
+// import { Handlers } from "$fresh/server.ts";
 import { Article, findAllArticles } from "@db";
 import { gitHubApi } from "@/communication/github.ts";
 import { getCookies, setCookie } from "$std/http/cookie.ts";
@@ -15,8 +15,7 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/ja";
 dayjs.extend(relativeTime); dayjs.locale("ja");
 
-export const handler: Handlers<Article[] | boolean> = {
-  async GET(req: Request, ctx) {
+export async function handler(req: Request, ctx: HandlerContext): Promise<Response> {
     // Get cookie from request header and parse it
     const maybeAccessToken = getCookies(req.headers)["deploy_chat_token"];
 
@@ -37,13 +36,11 @@ export const handler: Handlers<Article[] | boolean> = {
         return ctx.render(false);
     }
 
+    return ctx.render(articles);
 
     // FIXME: there are some `not work well`s bellow.
 
     const accessToken = await gitHubApi.getAccessToken(code);
-
-    return ctx.render(articles);
-
     const userData = await gitHubApi.getUserData(accessToken);
 
     // TODO: Here set new user to database.
@@ -58,8 +55,7 @@ export const handler: Handlers<Article[] | boolean> = {
 
     return response;
     // return ctx.render(articles);
-  },
-};
+  };
 
 export default function Home({ data }: PageProps<Article[]>) {
   return (
