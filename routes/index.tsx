@@ -43,6 +43,7 @@ export async function handler(req: Request, ctx: HandlerContext): Promise<Respon
     const accessToken = await gitHubApi.getAccessToken(code);
     // const userData = await gitHubApi.getUserData(accessToken);
 
+    return ctx.render(articles)
 
     // TODO: Here set new user to database.
 
