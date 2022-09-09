@@ -46,8 +46,8 @@ export async function handler(req: Request, ctx: HandlerContext): Promise<Respon
 
     // TODO: Here set new user to database.
 
-    // FIXME: there are some `not work well`s bellow.
     const response  = await ctx.render(articles);
+    // TODO: Add SameSite属性
     setCookie(response.headers, {
       name: "deploy_chat_token",
       value: accessToken,
